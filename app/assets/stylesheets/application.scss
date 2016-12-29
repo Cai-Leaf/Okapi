@@ -14,3 +14,63 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
+/*调整导航栏的样式*/
+.page-chose 
+{
+  font-size:16px;
+  margin-left:10px;
+  font-family: "微软雅黑";
+  font-weight: 800;
+}
+
+/*调整LOGO*/
+.logo 
+{
+	font-family: "方正舒体";
+}
+
+/*小头像的大小*/
+.micro-avatar
+{
+	margin-top:5px;
+	width: 40px;
+	height: 40px;
+	border-style:solid;
+	border-width:1px;
+	border-color:gray;
+}
+
+/*下拉表的button*/
+.dropdown-bt
+{
+	margin-top:5px;
+	height: 40px;
+}
+
+/*页脚字体*/
+.page-foot
+{
+	font-family: "微软雅黑";
+}
+
+/*粘贴页脚*/
+html,body {
+height: 100%;
+}
+
+#wrap {
+min-height: 100%;
+height: auto !important;
+margin: 0 auto -80px;
+}
+
+#push
+{
+height: 80px;
+}
+
+.footer {
+	height: 80px;
+}

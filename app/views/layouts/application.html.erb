@@ -2,12 +2,61 @@
 <html>
   <head>
     <title>Okapi</title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- 引入 Bootstrap -->
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <div id="wrap">
+    <!-- 导航栏 -->
+		<nav class="navbar navbar-default" id="navbar-setting" role="navigation">
+		  <div class="container-fluid">
+			  
+		    <!-- LOGO显示 -->
+		    <div class="navbar-header ">
+		      <a class="navbar-brand logo" href="#">NiceAPI</a>
+		    </div>
+			    
+			<!-- 主页 搜索 测试 --> 
+			<ul class="nav navbar-nav">
+			<li><a class="page-chose" href="#">主页</a></li>
+			<li class="active"><a class="page-chose" href="#">API搜索</a></li>
+			<li class=""><a class="page-chose" href="#">测试</a></li>
+			</ul>
+
+			<!-- 用户 --> 
+			<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+			  <button type="button" class="btn dropdown-bt dropdown-toggle" data-toggle="dropdown">
+	    		<span class="caret"></span>
+	   			<span class="sr-only">Toggle Dropdown</span>
+		  	  </button>
+			  <ul class="dropdown-menu" role="menu">
+			    <li><a href="#">用户信息</a></li>
+			    <li><a href="#">设置</a></li>
+			    <li class="divider"></li>
+			    <li><a href="#">退出登录</a></li>
+			  </ul>
+			</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+			<img class="micro-avatar" src="/assets/4.jpg" alt="...">
+			</ul>
+		
+		  </div><!-- /.container-fluid -->
+		</nav>
+    
     <%= yield %>
+    
+    <div id="push"></div>
+    </div>
+    
+    <footer class="col-md-12 footer">
+        <hr/> 
+        <p class="text-center page-foot">@2016 高级软件工程课程项目</p>
+    </footer>
   </body>
 </html>
