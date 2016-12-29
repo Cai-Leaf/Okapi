@@ -15,22 +15,22 @@
 
 <!-- API展示 -->
 <div class="col-md-8 col-md-offset-2">
-	<% @mytest.each do |test| %>
+	<% @apis.each do |api| %>
 	<div class=" col-md-3">
 		<div class="panel panel-default text-center">
-		  <div class="panel-heading"><B><%= test[:title] %></B></div>
+		  <div class="panel-heading"><B><%= api.name %></B></div>
 		  <div class="panel-body">
 			  <div class="aip-img-body">
-			  	<span class="help-span"></span><img class="api-img" src="<%= "/assets/4.jpg" %>" alt="api-logo">
+			  	<span class="help-span"></span><img class="api-img" src="/assets/<%= api.logo %>" alt="api-logo">
 			  </div>
 			  <hr/> 
 			  <div class="aip-content-body">
-		  		<p><%= test[:content] %></p>
+		  		<p><%= api.description %></p>
 		  	  </div>
 		  </div>
 		  <div class="panel-footer">
-		  	  <p class="aip-version-display"><B>Version: </B>2015-05-21-preview</p>
-			  <p><a href="#" class="label label-primary">json</a></p>
+		  	  <p class="aip-version-display"><B>Version: </B><%= api.version %></p>
+			  <p><a href="<%= api.id %>" class="label label-primary">json</a></p>
 		  </div>
 		</div>
 	</div>

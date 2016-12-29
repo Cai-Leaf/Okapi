@@ -1,12 +1,12 @@
 class ApiController < ApplicationController
   
   def search
-    if params[:api] == nil
+    if params[:searchvalue] == nil
       @apis = Api.all
-    elsif params[:api][:name] == ""
+    elsif params[:searchvalue] == ""
       @apis = Api.all
     else
-      @apis = Api.where("name like ? or description like ?", "%#{params[:api][:name]}%", "%#{params[:api][:name]}%").all
+      @apis = Api.where("name like ? or description like ?", "%#{params[:searchvalue]}%", "%#{params[:searchvalue]}%").all
     end
   end
   
