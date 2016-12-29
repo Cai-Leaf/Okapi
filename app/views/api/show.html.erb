@@ -1,0 +1,34 @@
+<h1>展示API</h1>
+
+<p>
+  <strong>API ID:</strong>
+  <%= @api.id %>
+</p>
+
+<p>
+  <strong>API Name:</strong>
+  <%= @api.name %>
+</p>
+ 
+<p>
+  <strong>API Version:</strong>
+  <%= @api.version %>
+  <%= @api.logo %>
+</p>
+
+  
+<img src="/assets/<%= @api.logo %>" /> 
+
+</p>
+<p>
+  <strong>API Description:</strong>
+  <%= @api.description %>
+</p>
+<p>
+  <textarea rows="56" cols="130">
+  <%= @json %>
+</textarea>
+</p>
+<p>
+  
+</p>

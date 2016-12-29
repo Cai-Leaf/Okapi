@@ -1,0 +1,33 @@
+<h1>添加API</h1>
+
+<%= form_for :newapi,  url: :api_new do |f|%>
+	<table border="1">
+		<tr>
+			<td>API名称</td>
+			<td><%= f.text_field :name %></td>
+		</tr>	
+		<tr>
+			<td>API图片</td>
+			<td><%= f.file_field :logo_url %> </td>
+		</tr>
+		<tr>
+			<td>API版本</td>
+			<td><%= f.text_field :version %></td>
+		</tr>
+		<tr>
+			<td>API描述</td>
+			<td><%= f.text_area :description %></td>
+		</tr>
+		<tr>
+		<tr>
+			<td>API Swagger JSON</td>
+			<td><%= f.file_field :json_url %> </td>
+		</tr>
+			<td><input type="submit" value="提交"></td>
+		</tr>
+	</table>
+<% end %>
+<p>API</p>
+<p>
+  <%= @message %>
+</p>

@@ -1,2 +1,31 @@
-<h1>Api#search</h1>
-<p>Find me in app/views/api/search.html.erb</p>
+<h1>查询API</h1>
+
+ 
+<%= form_for :api, url: :api_search do |f| %>
+ 
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </p>
+ 
+  <p><%= f.button "查询" %></p>
+
+ <ul class="apis">
+  <% @apis.each do |api| %>
+    <li>
+    <p>
+      <strong>API Name:</strong>
+      <%= api.name %>
+    </p>
+    <p>
+      <strong>API Version:</strong>
+      <%= api.version %>
+    </p>
+    <img src="/assets/<%= api.logo %>" height="80" width="100" /> 
+    <%= link_to api.name+'/'+api.version, api %>
+    </li>
+  <% end %>
+  </ul>
+
+ 
+<% end %>
