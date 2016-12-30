@@ -1,0 +1,14 @@
+<style> 
+body{ margin:0; height:100%} 
+html{ height:100%} /*¼æÈÝfirefoxµÄdiv¸ß¶È100%*/ 
+#left{ position:absolute; top:0; left:0; width:700px; height:100%; background-color:#CCCCCC} 
+#right{ margin-left:700px; height:100%; background-color:#0099FF} 
+</style> 
+
+<div id="left" contenteditable="true">
+    <% @parsed_swagger.paths.each do |path| %>
+    <div class="paths"><%=path %></div>
+    <% end %>
+</div> 
+
+<div id="right">right</div> 

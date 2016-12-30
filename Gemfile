@@ -23,6 +23,14 @@ gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+
+#added by YF
+gem 'bootstrap-sass', '3.2.0.0'
+gem 'swagger-docs'
+gem 'swagger_parser'
+gem 'json'
+
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
