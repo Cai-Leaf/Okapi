@@ -1,0 +1,31 @@
+/*主要区域*/
+.main-body
+{
+	margin-top: 30px;
+}
+
+.main-text-style
+{
+	font-family: "微软雅黑";
+	font-size:16px;
+}
+
+/*LOGO图片大小*/
+.logo-upload-img
+{
+	max-width: 100%;
+	max-height: 100px;
+}
+
+/*隐藏很丑的输入按钮*/
+.input-hide
+{
+	position: absolute;
+	clip: rect(0 0 0 0);
+}
+
+/*文件路径显示*/
+.dir-show{
+	font-family: "微软雅黑";
+	margin-left: 10px;
+}

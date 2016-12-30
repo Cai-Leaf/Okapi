@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Okapi</title>
+    <title><%= @cur_page %></title>
   	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- 引入 Bootstrap -->
     <%= csrf_meta_tags %>
@@ -17,15 +17,16 @@
 			  
 		    <!-- LOGO显示 -->
 		    <div class="navbar-header ">
-		      <a class="navbar-brand logo" href="#">Okapi</a>
+		      <a class="navbar-brand logo" href="/search">Okapi</a>
 		    </div>
 			    
-			<!-- 主页 搜索 测试 --> 
+			<!--搜索 上传 -->
+			<% if @cur_page == "API搜索" || @cur_page == "API上传"  %>
 			<ul class="nav navbar-nav">
-			<li class="active"><a class="page-chose" href="#">搜索</a></li>
-			<li class=""><a class="page-chose" href="#">上传</a></li>
+			<li class="<%= getPageActiveCondition("API搜索") %>"><a class="page-chose" href="/search">搜索</a></li>
+			<li class="<%= getPageActiveCondition("API上传") %>"><a class="page-chose" href="api/new">上传</a></li>
 			</ul>
-
+      <% end %>
 		
 		  </div><!-- /.container-fluid -->
 		</nav>

@@ -1,21 +1,28 @@
 class ApiController < ApplicationController
   
   def search
+    @cur_page = "API搜索"
     if params[:searchvalue] == nil
       @apis = Api.all
+      @cur_searchvalue = ""
     elsif params[:searchvalue] == ""
       @apis = Api.all
+      @cur_searchvalue = ""
     else
       @apis = Api.where("name like ? or description like ?", "%#{params[:searchvalue]}%", "%#{params[:searchvalue]}%").all
+      @cur_searchvalue = params[:searchvalue]
     end
   end
   
   def show
+    @cur_page = "API展示"
     @api = Api.find(params[:id])
     @json = File.read(@api.path.to_s)
   end
   
-  def new 
+  def new
+    @cur_page = "API上传"
+    @message = "true"
     if params[:newapi] != nil
       if newapi_params[:name] != nil && newapi_params[:version] != nil && newapi_params[:json_url] != nil
        api_name = newapi_params[:name]

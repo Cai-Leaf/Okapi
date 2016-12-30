@@ -1,33 +1,86 @@
-<h1>添加API</h1>
+<!-- 主体 -->	
+<div class="col-md-4 col-md-offset-4 main-body">
+	<% if @message != "true" %>
+		<div class="alert alert-warning alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<strong>Warning!  </strong><span class="dir-show"><%= @message %></span>
+		</div>
+	<% end %>
+	<hr/> 
+	<form class="form-horizontal" enctype="multipart/form-data" action="/api/new" accept-charset="UTF-8" method="post" role="form">
+	<input type="hidden" name="authenticity_token" value="c8PH7BfS6gfcN1+x7RuiSB/orWtwTh2XIi5BCSMrTTLMowmsGBYFDoMX/ciqwk0pY5ukCsNmtGL3+uzNY1f4rQ==" />
+	  <div class="form-group">
+	    <label class="col-md-3 control-label main-text-style">API 名称</label>
+	    <div class="col-md-9">
+	      <input type="text" class="form-control" name="newapi[name]" placeholder="API Name">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label  class="col-md-3 control-label main-text-style">API 版本</label>
+	    <div class="col-md-9">
+	      <input type="text" class="form-control" name="newapi[version]" placeholder="API Version">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label  class="col-md-3 control-label main-text-style">API 描述</label>
+	    <div class="col-md-9">
+	      <textarea class="form-control" rows="4" name="newapi[description]" placeholder="API Describe"></textarea>
+	    </div>
+	  </div>
+	  <hr/> 
+	  <div class="form-group">
+		  <label  class="col-md-3 control-label main-text-style">API LOGO</label>
+		  <div class="col-md-9"> 
+		  	<label class="btn btn-default" for="logo" >上传LOGO</label><span class="dir-show" id="logo-dir">未选择任何文件</span>
+		  	<input type="file" id="logo" name="newapi[logo_url]" class="input-hide" accept="image/*">
+		  </div> 
+	  </div>
+	  <div class="row">
+	    <div class="col-md-9 col-md-offset-3">  
+	  		<img src="/assets/no_logo.png" id="previewImage" class="img-thumbnail logo-upload-img" alt="Responsive image"> 
+	  	</div>
+	  </div>
+	  <hr/> 
+	  <div class="form-group">
+		  <label  class="col-md-3 control-label main-text-style">API JSON</label>
+		  <div class="col-md-9">
+		  	<label class="btn btn-default" for="json" >上传JSON</label><span class="dir-show" id="json-dir">未选择任何文件</span>
+		  	<input type="file" id="json" name="newapi[json_url]" class="input-hide"  >
+		  </div>  
+	  </div>
+	  <hr/> 
+	  <div class="form-group">
+	    <div class="col-md-offset-3 col-md-6">
+	      <button type="submit" class="btn btn-primary btn-lg btn-block main-text-style">上传</button>
+	    </div>
+	  </div>
+	</form>
+</div>
+<script type="text/javascript"> 
+document.getElementById('logo').onchange = function(evt) {  
+    // 如果浏览器不支持FileReader，则不处理  
+    var files = evt.target.files;
+    var logo_img = files[0];
+    document.getElementById('logo-dir').innerHTML = logo_img.name;  
+    if (!window.FileReader) return;  
+    if (logo_img.type.match('image.*')) { 
+        var reader = new FileReader();  
+    	reader.onload = (function(theFile) {  
+            return function(e) {
+                // img 元素  
+                document.getElementById('previewImage').src = e.target.result;
+                
+            };  
 
-<%= form_for :newapi,  url: :api_new do |f|%>
-	<table border="1">
-		<tr>
-			<td>API名称</td>
-			<td><%= f.text_field :name %></td>
-		</tr>	
-		<tr>
-			<td>API图片</td>
-			<td><%= f.file_field :logo_url %> </td>
-		</tr>
-		<tr>
-			<td>API版本</td>
-			<td><%= f.text_field :version %></td>
-		</tr>
-		<tr>
-			<td>API描述</td>
-			<td><%= f.text_area :description %></td>
-		</tr>
-		<tr>
-		<tr>
-			<td>API Swagger JSON</td>
-			<td><%= f.file_field :json_url %> </td>
-		</tr>
-			<td><input type="submit" value="提交"></td>
-		</tr>
-	</table>
-<% end %>
-<p>API</p>
-<p>
-  <%= @message %>
-</p>
+    	})(logo_img);    
+    	reader.readAsDataURL(logo_img);   
+    }           
+}
+
+document.getElementById('json').onchange = function(evt) {  
+    // 如果浏览器不支持FileReader，则不处理  
+    var files = evt.target.files;
+    var json = files[0];
+    document.getElementById('json-dir').innerHTML = json.name;          
+}  	
+</script> 
