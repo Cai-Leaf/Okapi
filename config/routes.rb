@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   #get 'api/init'
   get 'api/new'
   post 'api/new'
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
   get 'api/search'
   
   match '/search', :to => 'api#search', :via => [:get, :post]
+  match '/new', :to => 'api#new', :via => [:get, :post]
   
   resources :api
 
