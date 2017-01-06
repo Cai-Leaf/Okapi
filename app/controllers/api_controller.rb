@@ -2,6 +2,7 @@ class ApiController < ApplicationController
   
   def search
     @cur_page = "API搜索"
+    @num = 0
     if params[:searchvalue] == nil
       @apis = Api.all
       @cur_searchvalue = ""
@@ -11,6 +12,7 @@ class ApiController < ApplicationController
     else
       @apis = Api.where("name like ? or description like ?", "%#{params[:searchvalue]}%", "%#{params[:searchvalue]}%").all
       @cur_searchvalue = params[:searchvalue]
+      @num = @apis.size
     end
   end
   
@@ -44,13 +46,21 @@ class ApiController < ApplicationController
          end
        
          json_url = newapi_params[:json_url]
-         api_path = Rails.root.to_s+'/swagger/' + api_name+'('+api_version+').json'
-         uploadjson(json_url,api_path)
-         Api.create(:name => api_name, :version => api_version, :description => api_description, :logo => api_logo, :path => api_path )
-         api = Api.find_by(name: api_name, version: api_version)
-         redirect_to :action => 'show',:id =>  api.id
+         str = json_url.original_filename
+         len = str.length
+         
+         if str[len-5..len] == '.json'
+           api_path = Rails.root.to_s+'/swagger/' + api_name+'('+api_version+').json'
+           uploadjson(json_url,api_path)
+           Api.create(:name => api_name, :version => api_version, :description => api_description, :logo => api_logo, :path => api_path )
+           api = Api.find_by(name: api_name, version: api_version)
+           redirect_to :action => 'show',:id =>  api.id
+         else
+           @message = "API文档不符合要求"
+         end
+         
        else
-        redirect_to :action => 'show',:id =>  api.id
+        @message = "上传的API文档已存在"
        end
        
       else

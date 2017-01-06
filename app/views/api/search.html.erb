@@ -15,6 +15,11 @@
 
 <!-- API展示 -->
 <div class="col-md-8 col-md-offset-2">
+	
+	<% if @num != 0 %>
+			<p>共 <strong><%= @num %></strong> 结果：</p>
+	<% end %>
+	
 	<% @apis.each do |api| %>
 	<div class=" col-md-3">
 		<div class="panel panel-default text-center">
@@ -30,7 +35,11 @@
 		  </div>
 		  <div class="panel-footer">
 		  	  <p class="aip-text-display"><B>Version: </B><%= api.version %></p>
+<<<<<<< HEAD
 			  <p><a href="/api/<%= api.id %>" class="label label-primary">more details</a></p>
+=======
+			  <p><a href="/api/<%= api.id %>" class="label label-primary">More details</a></p>
+>>>>>>> f3b8d5dfbf9238bb074e21ab545cb20a2f71c3e4
 		  </div>
 		</div>
 	</div>
