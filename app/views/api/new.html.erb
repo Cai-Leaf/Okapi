@@ -62,7 +62,7 @@ document.getElementById('logo').onchange = function(evt) {
     // 如果浏览器不支持FileReader，则不处理  
     var files = evt.target.files;
     var logo_img = files[0];
-    document.getElementById('logo-dir').innerHTML = logo_img.name;  
+    document.getElementById('logo-dir').innerHTML = getFileName(logo_img.name);  
     if (!window.FileReader) return;  
     if (logo_img.type.match('image.*')) { 
         var reader = new FileReader();  
@@ -82,7 +82,7 @@ document.getElementById('json').onchange = function(evt) {
     // 如果浏览器不支持FileReader，则不处理  
     var files = evt.target.files;
     var json = files[0];
-    document.getElementById('json-dir').innerHTML = json.name;          
+    document.getElementById('json-dir').innerHTML = getFileName(json.name);          
 } 
 //上传的响应事件
 function submitOnclick(){
@@ -111,5 +111,16 @@ function submitOnclick(){
 	}
 	
 }
+
+function getFileName( str ){
+	var extention = str.substring(str.lastIndexOf("."),str.length);
+	var filename = str.substring(0,str.lastIndexOf("."));
+	if(filename.length>15){
+		filename = filename.substring(0,15)+"... "
+	}
+	return filename+extention;
+}
+
+
 
 </script> 
