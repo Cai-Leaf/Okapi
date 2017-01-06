@@ -1,7 +1,7 @@
 <!-- 主体 -->	
 <div class="col-md-4 col-md-offset-4 main-body" id="main-body">
 	<% if @message != "true" %>
-		<div class="alert alert-warning alert-dismissible" id="alert-message" role="alert">
+		<div class="alert alert-danger alert-dismissible" id="alert-message" role="alert">
 			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			<p><strong>Warning!  </strong><span class="dir-show"><%= @message %></span></p>
 		</div>
@@ -107,7 +107,7 @@ function submitOnclick(){
 		if($("#alert-message").length > 0){
 			$("#alert-message").remove();
 		}
-		$("#api-message-form").prepend('<div class="alert alert-warning alert-dismissible" id="alert-message" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><p><strong>Warning!  </strong><span class="dir-show">'+message+'</span></p></div>');
+		$("#api-message-form").prepend('<div class="alert alert-danger alert-dismissible" id="alert-message" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><p><strong>Warning!  </strong><span class="dir-show">'+message+'</span></p></div>');
 	}
 	
 }

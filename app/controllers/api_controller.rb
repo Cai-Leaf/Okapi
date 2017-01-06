@@ -24,7 +24,7 @@ class ApiController < ApplicationController
     @cur_page = "API上传"
     @message = "true"
     if params[:newapi] != nil
-      if newapi_params[:name] != nil && newapi_params[:version] != nil && newapi_params[:json_url] != nil
+      if newapi_params[:name] != "" && newapi_params[:version] != "" && newapi_params[:json_url] != nil
        api_name = newapi_params[:name]
        api_version = newapi_params[:version]
        api = Api.find_by(name: api_name, version: api_version)

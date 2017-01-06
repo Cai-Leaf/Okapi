@@ -1,34 +1,26 @@
-<h1>展示API</h1>
-
-<p>
-  <strong>API ID:</strong>
-  <%= @api.id %>
-</p>
-
-<p>
-  <strong>API Name:</strong>
-  <%= @api.name %>
-</p>
- 
-<p>
-  <strong>API Version:</strong>
-  <%= @api.version %>
-  <%= @api.logo %>
-</p>
-
-  
-<img src="/assets/<%= @api.logo %>" /> 
-
-</p>
-<p>
-  <strong>API Description:</strong>
-  <%= @api.description %>
-</p>
-<p>
-  <textarea rows="56" cols="130">
-  <%= @json %>
-</textarea>
-</p>
-<p>
-  
-</p>
+<!-- API展示 -->
+       
+<div class="col-md-8 col-md-offset-2 api-first-show-area">
+	<div class="row">
+		<div class=" col-md-3 panel panel-default">
+	  	<div class="show-img-body text-center">
+		  	<span class="help-span"></span><img class="api-img" src="/assets/<%= @api.logo %>" alt="api-logo">
+		  </div>
+    </div>
+		<div class=" col-md-6 mian-contant-out">
+			<div class="mian-contant-in">
+			  	<p class="mian-contant-text"><B>API Name: </B><%= @api.name %></p>
+			  	<p class="mian-contant-text"><B>API ID: </B><%= @api.id %></p>
+			  	<p class="mian-contant-text"><B>API Version: </B><%= @api.version %></p>
+		  	</div>
+		</div>
+	</div>
+	<hr/>
+	<div class="row">	
+	  	<p class="description-text"><B>Description: </B><%= @api.description %></p>
+	</div>
+  <hr/>
+	<div class="row">
+      	<pre><%= @json %></pre>
+	</div>	
+</div>
