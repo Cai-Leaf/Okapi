@@ -16,16 +16,17 @@ class ApiController < ApplicationController
       @cur_searchvalue = params[:searchvalue]
       @num = @apis.size
     end
+     if  File.exists?("#{Rails.root}/app/assets/images/no_logo.png")
+        @file = 1
+    else
+        @file = 0
+    end
   end
   
   def show
     @cur_page = "API展示"
     @api = Api.find(params[:id])
-    if  File.exists?("#{Rails.root}/app/assets/images/lkjhhgfgh_4573.png")
-        @file = 1
-    else
-        @file = 0
-    end
+   
     @json = File.read(@api.path.to_s)
   end
   
