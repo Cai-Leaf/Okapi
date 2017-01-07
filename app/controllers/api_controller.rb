@@ -21,7 +21,7 @@ class ApiController < ApplicationController
   def show
     @cur_page = "API展示"
     @api = Api.find(params[:id])
-    if  File.exists?("#{Rails.root}/app/assets/images/#{@api.logo}")
+    if  File.exists?("#{Rails.root}/swagger/11_1.png")
         @file = 1
     else
         @file = 0
@@ -80,7 +80,7 @@ class ApiController < ApplicationController
   protected
   def uploadlogo(file,filename)
     if !file.original_filename.empty?
-      File.open("#{Rails.root}/app/assets/images/#{filename}", "wb") do |f|
+      File.open("#{Rails.root}/swagger/#{filename}", "wb") do |f|
         f.write(file.read)
       end
       return filename
