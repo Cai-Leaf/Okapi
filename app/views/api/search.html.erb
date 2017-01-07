@@ -19,14 +19,14 @@
 	<!--<% if @num != 0 %>-->
 	<!--		<p>共 <strong><%= @num %></strong> 结果：</p>-->
 	<!--<% end %>-->
-	<p><B>Description: </B><%= @file %></p>
+	
 	<% @apis.each do |api| %>
 	<div class=" col-md-3">
 		<div class="panel panel-default text-center">
 		  <div class="panel-heading"><p class="aip-text-display"><B><%= api.name %></B></p></div>
 		  <div class="panel-body">
 			  <div class="aip-img-body">
-			  	<span class="help-span"></span><img class="api-img" src="/assets/<%= api.logo %>" alt="api-logo">
+			  	<span class="help-span"></span><%= image_tag api.logo , class: 'api-img' %>
 			  </div>
 			  <hr/> 
 			  <div class="aip-content-body">

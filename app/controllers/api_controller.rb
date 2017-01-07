@@ -16,17 +16,11 @@ class ApiController < ApplicationController
       @cur_searchvalue = params[:searchvalue]
       @num = @apis.size
     end
-     if  File.exists?("#{Rails.root}/app/assets/images/no_logo.png")
-        @file = 1
-    else
-        @file = 0
-    end
   end
   
   def show
     @cur_page = "API展示"
     @api = Api.find(params[:id])
-   
     @json = File.read(@api.path.to_s)
   end
   
@@ -81,7 +75,7 @@ class ApiController < ApplicationController
   protected
   def uploadlogo(file,filename)
     if !file.original_filename.empty?
-      File.open("#{Rails.root}/swagger/#{filename}", "wb") do |f|
+      File.open("#{Rails.root}/app/assets/images/#{filename}", "wb") do |f|
         f.write(file.read)
       end
       return filename
