@@ -21,7 +21,7 @@ class ApiController < ApplicationController
   def show
     @cur_page = "API展示"
     @api = Api.find(params[:id])
-    if  File.exists?("#{Rails.root}/swagger/#{@api.logo}")
+    if  File.exists?("#{Rails.root}/app/assets/images/lkjhhgfgh_4573.png")
         @file = 1
     else
         @file = 0
