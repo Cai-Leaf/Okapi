@@ -21,7 +21,12 @@ class ApiController < ApplicationController
   def show
     @cur_page = "API展示"
     @api = Api.find(params[:id])
-    @file = File.read("#{Rails.root}/app/assets/images/#{@api.logo}").to_s
+    tmp = File.read("#{Rails.root}/app/assets/images/#{@api.logo}")
+    if tmp.empty?
+        @file = 0
+    else
+        @file = tmp.to_s
+    end
     @json = File.read(@api.path.to_s)
   end
   
