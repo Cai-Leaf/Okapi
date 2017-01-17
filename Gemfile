@@ -33,6 +33,13 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+#added by YF
+gem 'bootstrap-sass', '3.2.0.0'
+gem 'swagger-docs'
+gem 'swagger_parser'
+gem 'json'
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

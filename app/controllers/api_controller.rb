@@ -1,5 +1,11 @@
 class ApiController < ApplicationController
   
+  
+  #import
+  require "swagger_parser"
+  require "json"
+  require "open-uri"
+  
   skip_before_filter :verify_authenticity_token, :only => [:new]
   
   def search
@@ -22,6 +28,48 @@ class ApiController < ApplicationController
     @cur_page = "API展示"
     @api = Api.find(params[:id])
     @json = File.read(@api.path.to_s)
+    
+    
+    #################added by YF######################################
+
+    #待修改参数，从数据库中读取.json文件，取代直接赋值的方式
+    @parsed_swagger = SwaggerParser::FileParser.parse(@api.path.to_s)   
+    
+    
+    @schemes = @parsed_swagger.schemes  #http or https
+    @host = @parsed_swagger.host
+    @basepath = @parsed_swagger.base_path
+    
+    
+    @paths = Array.new
+    hash_parameters = Array.new
+    parameter_hash = Hash.new
+    hash = Hash.new
+
+    #用三层循环将json装入一个二维哈希中
+    #每个路径
+    @parsed_swagger.paths.each do |path|
+
+      #每个路径中的方法
+      path[1].operations.each do |operation| 
+
+        #每个方法中的参数,parameter[0]是一个哈希
+        operation.parameters.each do |parameter|  
+          parameter_hash = {:param_name =>parameter[0]['name'], :required =>parameter[0]['required']}   
+          hash_parameters.push(parameter_hash)
+        end
+        #URL链接的格式：schemes + // + host + / + basepath + path(with argument)
+        url = ''
+        #使用正则表达式对url进行处理，使之符合标准格式
+        pattern = /http|https/
+        url << pattern.match(@schemes.to_s).to_s << '://' << @host.to_s  << @basepath.to_s << path[0]
+        hash = {:path_name =>path[0], :action =>operation.http_method, :description =>operation.description, :operationid =>operation.operation_id, :parameters =>hash_parameters, 
+        :test_url => url }
+        @paths.push(hash)
+      end
+    end
+		############## YF's part over ################################################    
+    
   end
   
   def new
