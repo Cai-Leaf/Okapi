@@ -34,7 +34,6 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 
 #added by YF
-gem 'bootstrap-sass', '3.2.0.0'
 gem 'swagger-docs'
 gem 'swagger_parser'
 gem 'json'
