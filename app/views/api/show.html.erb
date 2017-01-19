@@ -1,10 +1,16 @@
 <!-- API展示 -->
        
-<div class="col-md-8 col-md-offset-2 api-first-show-area">
+<div class="col-md-6 ">
+	
+      	<pre><%= @json %></pre>
+		
+</div>
+
+<div class="col-md-6 ">
 	<div class="row">
 		<div class=" col-md-3 panel panel-default">
 	  	<div class="show-img-body text-center">
-		  	<span class="help-span"></span><img class="api-img" src="/assets/<%= @api.logo %>" alt="api-logo">
+		  	<span class="help-span"></span><%= image_tag @api.logo , class: 'api-img' %>
 		  </div>
     </div>
 		<div class=" col-md-9 mian-contant-out">
@@ -19,8 +25,120 @@
 	<div class="row">	
 	  	<p class="description-text"><B>Description: </B><%= @api.description %></p>
 	</div>
+	<!--<div class="alert alert-success" role="alert">Result: <%= @paths %></div>-->
   <hr/>
-	<div class="row">
-      	<pre><%= @json %></pre>
-	</div>	
+
+    <% @paths.each do |path| %>
+	<div class="panel panel-default test-path">
+		<div class="panel-heading"><%= path[:action] %> <%= path[:path_name] %></div>
+		<div class="panel-body">
+		    <form role="form">
+			    <div class="form-group">
+				    <label>description</label>
+				    <p><%= path[:description] %></p>
+			    </div>
+			    <div class="form-group"> 
+				    <label>operationid</label>
+				    <p><%= path[:operationid] %></p>
+			    </div>
+			    <hr/>
+			    <script type="text/javascript">
+					var url<%= @paths.index(path) %> = new Array();
+					var required_array<%= @paths.index(path) %> = new Array();
+					var param_disc<%= @paths.index(path) %> = {};
+					
+			    </script>
+			    <% path[:parameters].each do |parameter| %>
+			    <div class="form-group">
+				    <label><%= parameter[:param_name] %> <span>required:</span><span><%= parameter[:required] %></span></label>
+				    <input class="form-control" id="input<%= path[:path_name] %>-<%= parameter[:param_name] %>-<%= path[:parameters].index(parameter) %>" placeholder="Enter <%= parameter[:param_name] %>">
+				    <!--响应事件-->
+				    <script type="text/javascript">
+				       var check = <%= parameter[:required] %>;
+				       if(check){
+				       	  url<%= @paths.index(path) %>[<%= path[:parameters].index(parameter) %>] = "<%= parameter[:param_name] %>=";
+				       	  required_array<%= @paths.index(path) %>[<%= path[:parameters].index(parameter) %>] = 1;
+				       }else{
+				       	  url<%= @paths.index(path) %>[<%= path[:parameters].index(parameter) %>] = "";
+				       	  required_array<%= @paths.index(path) %>[<%= path[:parameters].index(parameter) %>] = 0;
+				       }
+				       var my_action = "<%= path[:action] %>";
+					    if( my_action != "GET" ){
+						    param_disc<%= @paths.index(path) %>["<%= parameter[:param_name] %>"] = "";
+					    }
+			        </script>
+				    <script type="text/javascript">
+						document.getElementById('input<%= path[:path_name] %>-<%= parameter[:param_name] %>-<%= path[:parameters].index(parameter) %>').onchange = function(evt) {
+						url<%= @paths.index(path) %>[<%= path[:parameters].index(parameter) %>] = "<%= parameter[:param_name] %>="+ document.getElementById('input<%= path[:path_name] %>-<%= parameter[:param_name] %>-<%= path[:parameters].index(parameter) %>').value;
+						var temp = url<%= @paths.index(path) %>;
+					    var url_string = "<%= path[:test_url] %>";
+					    var my_action = "<%= path[:action] %>";
+					    if( my_action == "GET" ){
+						    for (var i=0;i<temp.length;i++){
+							   if(i == 0){
+							   	url_string += "?"+temp[i];
+							   }
+							   else{
+							   	if(temp[i]!="") url_string += "&"+temp[i];
+							   }
+							}
+							document.getElementById('url-<%= path[:path_name] %>').innerHTML = url_string;
+					    }else{
+					    	param_disc<%= @paths.index(path) %>["<%= parameter[:param_name] %>"] =  document.getElementById('input<%= path[:path_name] %>-<%= parameter[:param_name] %>-<%= path[:parameters].index(parameter) %>').value;
+					    }
+						console.log(url<%= @paths.index(path) %>);
+						}
+					</script>
+				</div>
+				<% end %>
+				<div class="form-group">
+				    <label>URL</label>
+				    <p id="url-<%= path[:path_name] %>"><%= path[:test_url] %></p>
+				     <script type="text/javascript">
+					    var temp = url<%= @paths.index(path) %>;
+					    var url_string = "<%= path[:test_url] %>";
+						var my_action = "<%= path[:action] %>";
+						console.log(my_action);
+					    if( my_action == "GET" ){
+						    for (var i=0;i<temp.length;i++){
+							   if(i == 0){
+							   	url_string += "?"+temp[i];
+							   }
+							   else{
+							   	if(temp[i]!="") url_string += "&"+temp[i];
+							   }
+							}
+					    }
+						document.getElementById('url-<%= path[:path_name] %>').innerHTML = url_string;
+			    	 </script>
+				</div>			
+			    <button type="button" class="btn btn-default btn-lg" onclick="test_<%= @paths.index(path) %>_onclick()">test</button>
+			    <script type="text/javascript">
+					function test_<%= @paths.index(path) %>_onclick() {
+					   var ajax_url = document.getElementById('url-<%= path[:path_name] %>').innerHTML;
+					   var ajax_type = '<%= path[:action] %>';
+					   ajax_url=ajax_url.replace("http", "https");
+					   console.log(ajax_url);
+					   console.log(ajax_type);
+					   console.log(param_disc<%= @paths.index(path) %>);
+					   $.ajax({
+					             type: ajax_type,
+					             url: ajax_url,
+					             dataType: "json",
+					             data: param_disc<%= @paths.index(path) %>,
+					             success: function(data, textStatus){
+					                 console.log(data);
+									 document.getElementById('result_<%= @paths.index(path) %>').innerHTML = "result:\r\n "+JSON.stringify(data)+"\r\n"+" Status:"+textStatus;     
+					             },
+								 error:  function(XMLHttpRequest, textStatus, errorThrown){
+						             document.getElementById('result_<%= @paths.index(path) %>').innerHTML = "result error:"+" Status:"+XMLHttpRequest.status;
+								 }
+					         });
+					}
+				</script>
+			    <hr/>
+			    <div class="alert alert-success" id="result_<%= @paths.index(path) %>" role="alert">点击test来获得测试结果</div>
+			</form>
+	</div>
 </div>
+<% end %>
