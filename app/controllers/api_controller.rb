@@ -119,6 +119,41 @@ class ApiController < ApplicationController
     end
   end
   
+   def init
+       Api.destroy_all
+       
+       json = File.read(Rails.root.to_s+'/app/assets/list.json')
+       obj = JSON.parse(json)
+       obj.each{ |key,value|  
+          aname = key 
+          value['versions'].each{ |k2, v2|
+            aversion = k2
+            temp = v2['info']
+       
+            if temp['description'] != nil
+               adescription = temp['description']
+            else
+               adescription = "No Description"
+            end
+       
+            if temp['x-logo'] != nil
+               alogo = temp['x-logo']['url'].to_s
+               alogo = alogo[36..alogo.length]
+            else
+               alogo = "no_logo.png"
+            end
+       
+            apath = Rails.root.to_s+'/swagger/' + aname+'('+aversion+').json'
+            apath = apath.sub(':','.')
+       
+            if !Api.find_by(name: aname,version: aversion)
+               Api.create(:name => aname, :version => aversion, :description => adescription, :logo => alogo, :path => apath )
+            end
+          }
+       }
+       
+  end
+
   
   protected
   def uploadlogo(file,filename)
@@ -145,39 +180,5 @@ class ApiController < ApplicationController
 	def newapi_params
 		params.require(:newapi).permit(:name, :description, :logo_url, :version, :json_url)
 	end
-  
-=begin  
-  def init
-    json = File.read(Rails.root.to_s+'/app/assets/list.json')
-       obj = JSON.parse(json)
-       obj.each{ |key,value|  
-       aname = key 
-       value['versions'].each{ |k2, v2|
-       aversion = k2
-       temp = v2['info']
-       
-       if temp['description'] != nil
-          adescription = temp['description']
-       else
-          adescription = "No Description"
-       end
-       
-       if temp['x-logo'] != nil
-         alogo = temp['x-logo']['url'].to_s
-         alogo = alogo[36..alogo.length]
-       else
-         alogo = "no_logo.png"
-       end
-       
-       apath = Rails.root.to_s+'/swagger/' + aname+'('+aversion+').json'
-       apath = apath.sub(':','.')
-       
-       if !Api.find_by(name: aname,version: aversion)
-           Api.create(:name => aname, :version => aversion, :description => adescription, :logo => alogo, :path => apath )
-       end
-       }
-       }
-  end
-=end
 
 end

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  #get 'api/init'
+  get 'api/init'
   get 'api/new'
   post 'api/new'
   get 'api/search'
